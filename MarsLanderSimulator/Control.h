@@ -2,7 +2,7 @@
 // Mars Lander data in a logical order.
 // Created by: Skyler Howard
 
-public struct Lander
+struct Lander
 {
 	double accelerometerX;    // accelerometer x-axis
 	double accelerometerY;    // accelerometer y-axis

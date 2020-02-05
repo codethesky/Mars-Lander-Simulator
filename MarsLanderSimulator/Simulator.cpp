@@ -1,6 +1,6 @@
 #include "Simulator.h"
 #include "stdlib.h"
-#include "unistd.h"
+
 #include <iostream>
 
 using namespace std;
@@ -21,7 +21,7 @@ void Simulator::display(Lander* lander)
 
 	cout << "                 MARS LANDER SIMULATION                       \n" << endl;
 
-	cout << "Altitude: " << lander->altitude << " mi" << "          "
+	cout << "Altitude: " << lander->altimeter << " mi" << "          "
 		<< " Descent: " << lander->dopplerRadar << " mph" << endl;
 	cout << "    Roll: " << lander->gyroscopeX << " degrees" << "          "
 		<< "X-Axis Speed: " << lander->accelerometerX << " rph" << endl;
@@ -47,7 +47,7 @@ void Simulator::display(Lander* lander)
 	displayBool(lander->touchDown);
 	cout << endl;
 
-	sleep(3);
+	// TODO: Add a method to add a few second pause in process
 }
 
 /*
