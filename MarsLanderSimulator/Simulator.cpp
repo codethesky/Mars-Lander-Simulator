@@ -1,5 +1,6 @@
 #include "Simulator.h"
 #include "stdlib.h"
+#include "windows.h"
 
 #include <iostream>
 
@@ -48,6 +49,7 @@ void Simulator::display(Lander* lander)
 	cout << endl;
 
 	// TODO: Add a method to add a few second pause in process
+	Sleep(3);
 }
 
 /*
