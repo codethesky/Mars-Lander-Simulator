@@ -1,5 +1,7 @@
 #include "Control.h"
 #include "Engine/Engine.h"
+#include "Sensor/Sensor.h"
+#include "DataLog.h"
 #include <iostream>
 #include <array>
 
@@ -52,7 +54,7 @@ void Control::landMarsLander()
 	while (!lander->touchDown)
 	{
 		dataLog.logData(lander);
-		sensor.getSensorData();      // Calls for updated data for next position. 
+		sensor.getSensorData(lander);      // Calls for updated data for next position. 
 		dataLog.logData(lander);       // Sends lander data to be logged in file and sent to simulator
 		engine.getEngineData(lander);  // Sends lander data for engines to react, and update lander object data
 

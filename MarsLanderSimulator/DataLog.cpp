@@ -15,3 +15,8 @@ DataLog::~DataLog()
 {
 
 }
+
+void DataLog::logData(Lander* vehicle)
+{
+
+}
