@@ -46,7 +46,7 @@ void Control::initialize()
 
 void Control::landMarsLander()
 {
-	// TODO: have a Sensor class that inititializes all sensor objects needed on lander
+	
 	Sensor sensor;
 	DataLog dataLog;
 	Engine engine;
