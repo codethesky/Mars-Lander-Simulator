@@ -32,6 +32,11 @@ public:
 	~Control();
 	void landMarsLander();
 private:
+	int count;
+	
 	void initialize();
+	void calcSensorData(Lander*);
+	void updateSensorInput(Lander*);
+	void calcRotationPerHour(Lander*, double);
 
 };

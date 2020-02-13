@@ -20,7 +20,7 @@ Engine::~Engine()
 }
 
 /*
-* Will take lander data, calculate new thrust for engines, then update lander data based on engine output.
+* Will take lander data, calculate new thrust for engines
 */
 void Engine::getEngineData(Lander* vehicle)
 {
