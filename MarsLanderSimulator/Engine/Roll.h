@@ -1,14 +1,12 @@
 // Created by: Skyler Howard
 // Roll engine controls spin of lander, clockwise or counterclockwise, affects accelerometerX, gyroscopeX
 
-class Roll
+class Roll : public Engine
 {
 public:
 	Roll();
 	~Roll();
-	void setThrust(double);
-
 private:
-	const double POWER = 30;
-	double thrust;
+
+
 };

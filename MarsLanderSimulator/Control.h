@@ -14,12 +14,12 @@ struct Lander
 	double gyroscopeX;        // orientation of x-axis
 	double gyroscopeY;        // orientation of y-axis
 	double gyroscopeZ;        // orientation of z-axis
-	double rollEngineOne;     // rotation engine, thrust is pounds of thrust
-	double rollEngineTwo;
-	double rollEngineThree;
-	double axialThrustOne;    // descent engine
-	double axialThrustTwo;
-	double axialThrustThree;
+	Roll rollEngineOne;     // rotation engine, thrust is pounds of thrust
+	Roll rollEngineTwo;
+	Roll rollEngineThree;
+	Axial axialThrustOne;    // descent engine
+	Axial axialThrustTwo;
+	Axial axialThrustThree;
 	bool parachute;           // If the parachute is deployed
 	bool touchDown;
 };

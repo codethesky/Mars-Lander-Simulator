@@ -37,12 +37,12 @@ void Control::initialize()
 	lander->gyroscopeX = 60.0;         // X-Axis Gyroscope: Degrees
 	lander->gyroscopeY = 15.0;         // Y-Axis Gyroscope: Degrees
 	lander->gyroscopeZ = 10.0;         // Z-Axis Gyroscope: Degrees
-	lander->rollEngineOne = 0.0;       // Rotation Engine: Percentage of Thrust
-	lander->rollEngineTwo = 0.0;       // Rotation Engine: Percentage of Thrust
-	lander->rollEngineThree = 0.0;     // Rotation Engine: Percentage of Thrust
-	lander->axialThrustOne = 0.0;      // Descent Engine: Percentage of Thrust
-	lander->axialThrustTwo = 0.0;      // Descent Engine: Percentage of Thrust
-	lander->axialThrustThree = 0.0;    // Descent Engine: Percentage of Thrust
+	lander->rollEngineOne.setThrust(0.0);       // Rotation Engine: Percentage of Thrust
+	lander->rollEngineTwo.setThrust(0.0);       // Rotation Engine: Percentage of Thrust
+	lander->rollEngineThree.setThrust(0.0);     // Rotation Engine: Percentage of Thrust
+	lander->axialThrustOne.setThrust(0.0);      // Descent Engine: Percentage of Thrust
+	lander->axialThrustTwo.setThrust(0.0);      // Descent Engine: Percentage of Thrust
+	lander->axialThrustThree.setThrust(0.0);    // Descent Engine: Percentage of Thrust
 	lander->parachute = false;         // If the parachute is deployed
 	lander->touchDown = false;         // If the vehicle has landed 
 }
@@ -102,9 +102,9 @@ void Control::calcRotationPerHour(Lander* vehicle, double lbs)
 {
 	double rotationX = vehicle->accelerometerX;
 	double rotationZ = vehicle->accelerometerZ;      //Roll engines account for 1/3rd of z-axis spin, 2/3rd is axial engine
-	double rollOne = vehicle->rollEngineOne;
-	double rollTwo = vehicle->rollEngineTwo;
-	double rollThree = vehicle->rollEngineThree;
+	double rollOne = vehicle->rollEngineOne.getThrust();
+	double rollTwo = vehicle->rollEngineTwo.getThrust();
+	double rollThree = vehicle->rollEngineThree.getThrust();
 	double powerOutput = rollOne + rollTwo + rollThree;
 	double gyroX = vehicle->gyroscopeX;
 	double gyroZ = vehicle->gyroscopeZ;
@@ -150,9 +150,9 @@ void Control::calcAxialData(Lander* vehicle, double lbs)
 	double rotationZ = vehicle->accelerometerZ;
 	double gyroY = vehicle->gyroscopeY;
 	double gyroZ = vehicle->gyroscopeZ;
-	double axialOne = vehicle->axialThrustOne;
-	double axialTwo = vehicle->axialThrustTwo;
-	double axialThree = vehicle->axialThrustThree;
+	double axialOne = vehicle->axialThrustOne.getThrust();
+	double axialTwo = vehicle->axialThrustTwo.getThrust();
+	double axialThree = vehicle->axialThrustThree.getThrust();
 
 	// adding up positive (clockPower) and negative (counterClockPower) for later calculations
 	double counterClockPower = axialOne + axialThree;
@@ -197,9 +197,9 @@ void Control::calcAxialData(Lander* vehicle, double lbs)
 void calcVelocity(Lander* vehicle, double weight)
 {
 	double velocity = vehicle->dopplerRadar;   // is in miles per hour
-	double axialOne = vehicle->axialThrustOne;
-	double axialTwo = vehicle->axialThrustTwo;
-	double axialThree = vehicle->axialThrustThree;
+	double axialOne = vehicle->axialThrustOne.getThrust();
+	double axialTwo = vehicle->axialThrustTwo.getThrust();
+	double axialThree = vehicle->axialThrustThree.getThrust();
 	double totalPower = axialOne + axialTwo + axialThree;
 	double altitude = vehicle->altimeter;
 	bool parachute = vehicle->parachute;

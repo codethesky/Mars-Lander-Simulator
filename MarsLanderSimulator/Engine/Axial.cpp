@@ -7,7 +7,8 @@ using namespace std;
 
 Axial::Axial()
 {
-	thrust = 0.0;
+	POWER = 50;
+	setThrust(0.0);
 }
 
 Axial::~Axial()
@@ -15,8 +16,3 @@ Axial::~Axial()
 
 }
 
-void Axial::setThrust(double amt)
-{
-	double pwr = this->POWER;
-	this->thrust = pwr * amt;
-}
