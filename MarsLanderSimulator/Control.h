@@ -14,7 +14,7 @@ struct Lander
 	double gyroscopeX;        // orientation of x-axis
 	double gyroscopeY;        // orientation of y-axis
 	double gyroscopeZ;        // orientation of z-axis
-	double rollEngineOne;     // rotation engine
+	double rollEngineOne;     // rotation engine, thrust is pounds of thrust
 	double rollEngineTwo;
 	double rollEngineThree;
 	double axialThrustOne;    // descent engine
@@ -38,5 +38,10 @@ private:
 	void calcSensorData(Lander*);
 	void updateSensorInput(Lander*);
 	void calcRotationPerHour(Lander*, double);
+	void calcAxialData(Lander*, double);
+	void calcVelocity(Lander*, double);
+	void calcAltitude(Lander*);
+	void calcTemperature(Lander*);
+	void quickPause(int);
 
 };
