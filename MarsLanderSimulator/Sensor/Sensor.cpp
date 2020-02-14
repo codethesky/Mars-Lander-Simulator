@@ -17,8 +17,8 @@ Sensor::~Sensor()
 {
 
 }
-
+/*
 void Sensor::getSensorData(Lander* vehicle)
 {
 
-}
+} */

@@ -1,6 +1,11 @@
 // Header for the Control class. The Control class will facilitate the movement of 
 // Mars Lander data in a logical order.
 // Created by: Skyler Howard
+#include "Engine/Engine.h"
+#include "Sensor/Sensor.h"
+#include "DataLog.h"
+#include <iostream>
+#include <array>
 
 struct Lander
 {

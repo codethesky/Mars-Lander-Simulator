@@ -6,7 +6,7 @@ class Sensor
 public:
 	Sensor();
 	~Sensor();
-	void getSensorData(Lander*);
+	//void getSensorData(Lander*);
 private:
 
 };

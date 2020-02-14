@@ -19,21 +19,38 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Axial.cpp" />
     <ClCompile Include="Control.cpp" />
     <ClCompile Include="DataLog.cpp" />
-    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Engine\Axial.cpp" />
+    <ClCompile Include="Engine\Engine.cpp" />
+    <ClCompile Include="Engine\Roll.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Roll.cpp" />
+    <ClCompile Include="Sensor\Accelerometer.cpp" />
+    <ClCompile Include="Sensor\Altimeter.cpp" />
+    <ClCompile Include="Sensor\DopplerRadar.cpp" />
+    <ClCompile Include="Sensor\Gyroscope.cpp" />
+    <ClCompile Include="Sensor\Sensor.cpp" />
+    <ClCompile Include="Sensor\Temperature.cpp" />
+    <ClCompile Include="Sensor\TouchDown.cpp" />
     <ClCompile Include="Simulator.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Axial.h" />
     <ClInclude Include="Control.h" />
     <ClInclude Include="DataLog.h" />
-    <ClInclude Include="Engine.h" />
-    <ClInclude Include="Roll.h" />
+    <ClInclude Include="Engine\Axial.h" />
+    <ClInclude Include="Engine\Engine.h" />
+    <ClInclude Include="Engine\Roll.h" />
+    <ClInclude Include="Sensor\Accelerometer.h" />
+    <ClInclude Include="Sensor\Altimeter.h" />
+    <ClInclude Include="Sensor\DopplerRadar.h" />
+    <ClInclude Include="Sensor\Gyroscope.h" />
+    <ClInclude Include="Sensor\Sensor.h" />
+    <ClInclude Include="Sensor\Temperature.h" />
+    <ClInclude Include="Sensor\TouchDown.h" />
     <ClInclude Include="Simulator.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="log.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

@@ -1,9 +1,4 @@
 #include "Control.h"
-#include "Engine/Engine.h"
-#include "Sensor/Sensor.h"
-#include "DataLog.h"
-#include <iostream>
-#include <array>
 
 using namespace std;
 
