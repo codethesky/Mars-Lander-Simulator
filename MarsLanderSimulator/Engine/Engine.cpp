@@ -49,12 +49,21 @@ void Engine::calcRollEngine(Lander* vehicle)
 	double percent = 0.0;
 	
 	// calculate X-axis spin, break it down into a percentage
-	pwr = (rotationX / 10) % 10;
+	pwr = (rotationX / 10);
 	percent = pwr / 100;
-
+	
 	// calculate Z-axis spin
-	pwr = ((rotationZ / 10) / 3) % 10;           // roll engine accounts for 1/3rd effect on Z-axis
+	pwr = ((rotationZ / 10) / 3);           // roll engine accounts for 1/3rd effect on Z-axis
 	percent += (pwr / 100);
+
+	if (percent > 1.0)
+	{
+		percent = 1.0;
+	}
+	else if (percent < -1.0)
+	{
+		percent = -1.0;
+	}
 
 	// set the new thrust percentage
 	vehicle->rollEngineOne.setThrust(percent);

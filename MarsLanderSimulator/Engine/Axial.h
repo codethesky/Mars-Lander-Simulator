@@ -7,7 +7,8 @@ class Axial : public Engine
 public:
 	Axial();
 	~Axial();
-
+	void setThrust(double);
+	double getThrust();
 private:
 	const double POWER = 50;
 

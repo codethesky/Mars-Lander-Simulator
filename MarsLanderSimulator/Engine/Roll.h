@@ -6,6 +6,8 @@ class Roll : public Engine
 public:
 	Roll();
 	~Roll();
+	void setThrust(double amt);
+	double getThrust();
 private:
 
 

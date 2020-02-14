@@ -9,8 +9,8 @@ public:
 	Engine();
 	~Engine();
 	void getEngineData(Lander*);
-	void setThrust(double amt);
-	double getThrust();
+	virtual void setThrust(double amt);
+	virtual double getThrust();
 
 protected:
 	double thrust;
