@@ -51,7 +51,6 @@ void Control::landMarsLander()
 {
 	// TODO: Calculation runtime of program and make each iteration one second long to be congruent with calculations
 
-	Sensor sensor;
 	DataLog dataLog;
 	Engine engine;
 
@@ -352,7 +351,7 @@ void calcTemperature(Lander* vehicle)
 	}
 }
 
-void Control::quickPause(int sec)
+void quickPause(int sec)
 {
 	int seconds = sec * 1000;
 	for (int i = 0; i < seconds; i++)
