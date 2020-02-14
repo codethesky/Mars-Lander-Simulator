@@ -71,7 +71,70 @@ void Engine::calcRollEngine(Lander* vehicle)
 	vehicle->rollEngineThree.setThrust(percent);
 }
 
+// TODO: first set gyroY to within 10 degrees of 0. Then, control landing velocity.
 void Engine::calcAxialEngine(Lander* vehicle)
 {
+	double gyroY = vehicle->gyroscopeY;
+	double gyroZ = vehicle->gyroscopeZ;
+	bool touchDown = vehicle->touchDown;
+	bool parachute = vehicle->parachute;
+	double velocity = vehicle->dopplerRadar;
+	double altitude = vehicle->altimeter;
+	double percent = 0.0;
+	double speed = 0;
+	bool upright = false;
 
+	// checking if lander is in the upright position
+	if (gyroY <= 10 && gyroY >= -10 && gyroZ <= 10 && gyroZ >= -10)
+	{
+		upright = true;
+	}
+
+	if (!touchDown)
+	{
+		if (!parachute)
+		{
+			if (!upright)
+			{
+				// Getting percentage of tilt, and applying that percent to the appropriate engines
+				percent = gyroY / 180;
+				if (gyroY < 180)
+				{
+					percent = percent / 2;
+					vehicle->axialThrustOne.setThrust(percent);
+					vehicle->axialThrustThree.setThrust(percent);
+				}
+				else if (gyroY >= 180)
+				{
+					percent = (percent * 100) % 100;
+					vehicle->axialThrustTwo.setThrust(percent);
+				}
+			}
+
+			// Vehicle is upright, now using all engines to control descent
+			if (upright)
+			{
+				if (velocity > 25)
+				{
+					vehicle->axialThrustOne.setThrust(1.0);
+					vehicle->axialThrustTwo.setThrust(1.0);
+					vehicle->axialThrustThree.setThrust(1.0);
+				}
+				else
+				{
+					percent = (altitude - .62) / velocity;
+					vehicle->axialThrustOne.setThrust(percent);
+					vehicle->axialThrustTwo.setThrust(percent);
+					vehicle->axialThrustThree.setThrust(percent);
+				}
+			}
+		}
+
+		// while parachute deployed, the lander will slowly move upright
+		if (parachute && !upright)
+		{
+			vehicle->gyroscopeY = gyroY - 10;
+			vehicle->gyroscopeZ = gyroZ - 10;
+		}
+	}
 }

@@ -194,7 +194,7 @@ void Control::calcAxialData(Lander* vehicle, double lbs)
 
 }
 
-void calcVelocity(Lander* vehicle, double weight)
+void Control::calcVelocity(Lander* vehicle, double weight)
 {
 	double velocity = vehicle->dopplerRadar;   // is in miles per hour
 	double axialOne = vehicle->axialThrustOne.getThrust();
@@ -270,7 +270,7 @@ void calcVelocity(Lander* vehicle, double weight)
 	}
 }
 
-void calcAltitude(Lander* vehicle)
+void Control::calcAltitude(Lander* vehicle)
 {
 	double altitude = vehicle->altimeter;
 	double velocity = vehicle->dopplerRadar;
@@ -308,7 +308,7 @@ void calcAltitude(Lander* vehicle)
 	vehicle->altimeter = altitude;
 }
 
-void calcTemperature(Lander* vehicle)
+void Control::calcTemperature(Lander* vehicle)
 {
 	bool parachute = vehicle->parachute;
 	double velocity = vehicle->dopplerRadar;
