@@ -6,7 +6,7 @@ using namespace std;
 
 Engine::Engine()
 {
-
+	POWER = 30;
 }
 
 Engine::~Engine()
@@ -106,7 +106,7 @@ void Engine::calcAxialEngine(Lander* vehicle)
 				}
 				else if (gyroY >= 180)
 				{
-					percent = (percent * 100) % 100;
+					percent = static_cast<int>(percent * 100) % 100;
 					vehicle->axialThrustTwo.setThrust(percent);
 				}
 			}

@@ -15,7 +15,7 @@ public:
 
 protected:
 	double thrust;
-	const double POWER;
+	double POWER;
 
 private:
 	void calcRollEngine(Lander*);
