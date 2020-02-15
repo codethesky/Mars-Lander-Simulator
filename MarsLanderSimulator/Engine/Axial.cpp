@@ -1,7 +1,6 @@
 // Created by: Skyler Howard
 
 #include "Axial.h"
-#include <iostream>
 
 using namespace std;
 

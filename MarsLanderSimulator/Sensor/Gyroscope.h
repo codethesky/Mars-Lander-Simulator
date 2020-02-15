@@ -1,4 +1,5 @@
 // Created by: Skyler Howard
+#pragma once
 
 class Gyroscope
 {

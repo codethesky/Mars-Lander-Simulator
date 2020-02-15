@@ -1,4 +1,5 @@
 // Created by: Marla Carrier, Skyler Howard
+#pragma once
 #include "Roll.h"
 #include "Axial.h"
 #include "../Control.h"

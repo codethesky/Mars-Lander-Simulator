@@ -1,5 +1,7 @@
 // Created by: Skyler Howard
 // Roll engine controls spin of lander, clockwise or counterclockwise, affects accelerometerX, gyroscopeX
+#pragma once
+#include <iostream>
 
 class Roll : public Engine
 {

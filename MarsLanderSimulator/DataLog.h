@@ -1,4 +1,5 @@
 // Creatd by: Skyler Howard
+#pragma once
 #include "Control.h"
 #include "Simulator.h"
 #include <iostream>

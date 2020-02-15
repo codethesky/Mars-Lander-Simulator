@@ -1,5 +1,4 @@
 #include "Roll.h"
-#include <iostream>
 
 using namespace std;
 
