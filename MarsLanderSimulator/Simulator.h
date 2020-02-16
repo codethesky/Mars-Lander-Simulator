@@ -5,6 +5,8 @@
 #include "Control.h"
 #include <iostream>
 
+struct Lander;      // forward declaration
+
 class Simulator
 {
 public:

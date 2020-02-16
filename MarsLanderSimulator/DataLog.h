@@ -6,6 +6,8 @@
 #include <fstream>
 #include <limits>
 
+struct Lander;      // forward declaration
+
 class DataLog
 {
 public:
@@ -13,7 +15,6 @@ public:
 	~DataLog();
 	void logData(Lander*);
 private:
-	Simulator* simulator;
 	int lineCount;
 
 	void clearLogFile();

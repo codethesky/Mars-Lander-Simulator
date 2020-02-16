@@ -6,7 +6,6 @@ using namespace std;
 
 DataLog::DataLog()
 {
-	simulator = new Simulator();
 	lineCount = 0;
 	clearLogFile();
 }
@@ -18,6 +17,7 @@ DataLog::~DataLog()
 
 void DataLog::logData(Lander* vehicle)
 {
+	Simulator simulator;
 	// Open the log file
 	ofstream logfile;
 	logfile.open("log.txt");
@@ -41,18 +41,18 @@ void DataLog::logData(Lander* vehicle)
 	logfile << "X-Axis Gyroscope: " << vehicle->gyroscopeX << "\n";
 	logfile << "Y-Axis Gyroscope: " << vehicle->gyroscopeY << "\n";
 	logfile << "Z-Axis Gyroscope: " << vehicle->gyroscopeZ << "\n";
-	logfile << "Roll Engine One Thrust: " << vehicle->rollEngineOne << "\n";
-	logfile << "Roll Engine Two Thrust: " << vehicle->rollEngineTwo << "\n";
-	logfile << "Roll Engine Three Thrust: " << vehicle->rollEngineThree << "\n";
-	logfile << "Axial Engine One Thrust: " << vehicle->axialThrustOne << "\n";
-	logfile << "Axial Engine Two Thrust: " << vehicle->axialThrustTwo << "\n";
-	logfile << "Axial Engine Three Thrust: " << vehicle->axialThrustThree << "\n";
+	logfile << "Roll Engine One Thrust: " << vehicle->rollEngineOne.getThrust() << "\n";
+	logfile << "Roll Engine Two Thrust: " << vehicle->rollEngineTwo.getThrust() << "\n";
+	logfile << "Roll Engine Three Thrust: " << vehicle->rollEngineThree.getThrust() << "\n";
+	logfile << "Axial Engine One Thrust: " << vehicle->axialThrustOne.getThrust() << "\n";
+	logfile << "Axial Engine Two Thrust: " << vehicle->axialThrustTwo.getThrust() << "\n";
+	logfile << "Axial Engine Three Thrust: " << vehicle->axialThrustThree.getThrust() << "\n";
 	logfile << "Parachute Deployed: " << vehicle->parachute << "\n";
 	logfile << "Vehicle Landing Sensor: " << vehicle->touchDown << "\n";
 
 
 	logfile.close();
-	simulator->display(vehicle);
+	simulator.display(vehicle);
 }
 
 // Will delete everything in the log.txt file

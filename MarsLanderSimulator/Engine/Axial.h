@@ -4,7 +4,7 @@
 #pragma once
 #include <iostream>
 
-class Axial : public Engine
+class Axial
 {
 public:
 	Axial();
@@ -12,6 +12,7 @@ public:
 	void setThrust(double);
 	double getThrust();
 private:
-	double POWER = 50;
+	const double POWER = 50;
+	double thrust;
 
 };

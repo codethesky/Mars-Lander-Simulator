@@ -110,7 +110,7 @@ void Control::calcRotationPerHour(Lander* vehicle, double lbs)
 
 	// convert rotation per second to weight of spin
 	rotationX = rotationX * lbs;
-	rotationZ * rotationZ * lbs;
+	rotationZ = rotationZ * lbs;
 
 	// adjust weight of spin by roll engine power output
 	rotationX = rotationX - powerOutput;

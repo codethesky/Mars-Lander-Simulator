@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-class Roll : public Engine
+class Roll
 {
 public:
 	Roll();
@@ -12,6 +12,6 @@ public:
 	void setThrust(double amt);
 	double getThrust();
 private:
-
-
+	const double POWER = 30;
+	double thrust;
 };

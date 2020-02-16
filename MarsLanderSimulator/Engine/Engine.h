@@ -4,22 +4,21 @@
 #include "Axial.h"
 #include "../Control.h"
 
+struct Lander;     // forward declaration
+
 class Engine
 {
 public:
 	Engine();
 	~Engine();
-	void getEngineData(Lander*);
-	virtual void setThrust(double amt);
-	virtual double getThrust();
+	void getEngineData(Lander* vehicle);
 
 protected:
-	double thrust;
-	double POWER;
+
 
 private:
-	void calcRollEngine(Lander*);
-	void calcAxialEngine(Lander*);
+	void calcRollEngine(Lander* vehicle);
+	void calcAxialEngine(Lander* vehicle);
 	/*Roll* rollOne;             // affects accelerometerX, gyroscopeX
 	Roll* rollTwo;
 	Roll* rollThree;

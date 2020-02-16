@@ -33,12 +33,12 @@ void Simulator::display(Lander* lander)
 
 	cout << "______________________________________________________________\n\n"
 		<< "                             Engines                            " << endl;
-	cout << "     Roll 1: " << lander->rollEngineOne << "% " << "          "
-		<< "Axial 1: " << lander->axialThrustOne << "% " << endl;
-	cout << "     Roll 2: " << lander->rollEngineTwo << "% " << "          "
-		<< "Axial 2: " << lander->axialThrustTwo << "% " << endl;
-	cout << "     Roll 3: " << lander->rollEngineThree << "% " << "          "
-		<< "Axial 3: " << lander->axialThrustThree << "% " << endl;
+	cout << "     Roll 1: " << lander->rollEngineOne.getThrust() << "% " << "          "
+		<< "Axial 1: " << lander->axialThrustOne.getThrust() << "% " << endl;
+	cout << "     Roll 2: " << lander->rollEngineTwo.getThrust() << "% " << "          "
+		<< "Axial 2: " << lander->axialThrustTwo.getThrust() << "% " << endl;
+	cout << "     Roll 3: " << lander->rollEngineThree.getThrust() << "% " << "          "
+		<< "Axial 3: " << lander->axialThrustThree.getThrust() << "% " << endl;
 
 	cout << "______________________________________________________________\n" << endl;
 	cout << "Parachute Deployed: ";

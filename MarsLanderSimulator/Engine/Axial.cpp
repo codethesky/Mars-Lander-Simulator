@@ -6,7 +6,6 @@ using namespace std;
 
 Axial::Axial()
 {
-	POWER = 50;
 	setThrust(0.0);
 }
 
@@ -15,6 +14,8 @@ Axial::~Axial()
 
 }
 
+// the input amt is a decimal of the percentage of thrust you want to have
+// the overall thrust that gets set is the new amount of power the output is, by pounds per second
 void Axial::setThrust(double amt)
 {
 	double pwr = this->POWER;

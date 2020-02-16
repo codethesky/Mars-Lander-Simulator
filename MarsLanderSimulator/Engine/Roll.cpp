@@ -4,7 +4,6 @@ using namespace std;
 
 Roll::Roll()
 {
-	POWER = 30;
 	setThrust(0.0);
 }
 
