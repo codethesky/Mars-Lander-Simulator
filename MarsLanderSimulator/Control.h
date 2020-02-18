@@ -48,5 +48,6 @@ private:
 	void calcVelocity(Lander*, double);
 	void calcAltitude(Lander*);
 	void calcTemperature(Lander*);
+	void slowDownAccelerometer(Lander*);
 
 };

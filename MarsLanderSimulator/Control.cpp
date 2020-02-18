@@ -61,6 +61,7 @@ void Control::landMarsLander()
 		engine.getEngineData(lander);  // Sends lander data for engines to react, and update lander object data
 		dataLog.logData(lander);
 		calcSensorData(lander);
+		quickPause(10);
 	}
 
 
@@ -95,6 +96,8 @@ void Control::updateSensorInput(Lander* vehicle)
 */
 void Control::calcRotationPerHour(Lander* vehicle, double lbs)
 {
+	bool parachute = vehicle->parachute;
+	double altitude = vehicle->altimeter;
 	double rotationX = vehicle->accelerometerX;
 	double rotationZ = vehicle->accelerometerZ;      //Roll engines account for 1/3rd of z-axis spin, 2/3rd is axial engine
 	double rollOne = vehicle->rollEngineOne.getThrust();
@@ -104,43 +107,54 @@ void Control::calcRotationPerHour(Lander* vehicle, double lbs)
 	double gyroX = vehicle->gyroscopeX;
 	double gyroZ = vehicle->gyroscopeZ;
 
-	// must convert accelerometerX rotation per hour to per second
-	rotationX = (rotationX / 60) / 60;
-	rotationZ = (rotationZ / 60) / 60;
+	if (!parachute && altitude < 6)
+	{
+		// must convert accelerometerX rotation per hour to per second
+		rotationX = (rotationX / 60) / 60;
+		rotationZ = (rotationZ / 60) / 60;
 
-	// convert rotation per second to weight of spin
-	rotationX = rotationX * lbs;
-	rotationZ = rotationZ * lbs;
+		// convert rotation per second to weight of spin
+		rotationX = rotationX * lbs;
+		rotationZ = rotationZ * lbs;
 
-	// adjust weight of spin by roll engine power output
-	rotationX = rotationX - powerOutput;
-	rotationZ = rotationZ - (.33 * powerOutput);     // roll engin accounts for 1/3rd z-axis spin
+		// adjust weight of spin by roll engine power output
+		rotationX = rotationX - powerOutput;
+		rotationZ = rotationZ - (.33 * powerOutput);     // roll engin accounts for 1/3rd z-axis spin
 
-	// adjust the overall weight of spin to the percentage of overall weight
-	rotationX = rotationX / lbs;
-	rotationZ = rotationZ / lbs;
+		// adjust the overall weight of spin to the percentage of overall weight
+		rotationX = rotationX / lbs;
+		rotationZ = rotationZ / lbs;
 
-	// calculate degree adjustment for gyroscope, still based on per second
-	gyroX = 360 * rotationX;
-	gyroZ = 360 * rotationZ;
-	gyroX = static_cast<int>(vehicle->gyroscopeX + gyroX) % 360;
-	gyroZ = static_cast<int>(vehicle->gyroscopeZ + gyroZ) % 360;
+		// calculate degree adjustment for gyroscope, still based on per second
+		gyroX = 360 * rotationX;
+		gyroZ = 360 * rotationZ;
+		gyroX = static_cast<int>(vehicle->gyroscopeX + gyroX) % 360;
+		gyroZ = static_cast<int>(vehicle->gyroscopeZ + gyroZ) % 360;
 
-	// update lander gyroscope data
-	vehicle->gyroscopeX = gyroX;
-	vehicle->gyroscopeZ = gyroZ;
+		// update lander gyroscope data
+		vehicle->gyroscopeX = gyroX;
+		vehicle->gyroscopeZ = gyroZ;
 
-	// convert weight of spin back to the rotation per hour
-	rotationX = (rotationX * 60) * 60;
-	rotationZ = (rotationZ * 60) * 60;
+		// convert weight of spin back to the rotation per hour
+		rotationX = (rotationX * 60) * 60;
+		rotationZ = (rotationZ * 60) * 60;
 
-	// applying roll engine power to adjust axis spin
-	vehicle->accelerometerX = rotationX;
-	vehicle->accelerometerZ = rotationZ;
+		// applying roll engine power to adjust axis spin
+		vehicle->accelerometerX = rotationX;
+		vehicle->accelerometerZ = rotationZ;
+	}
+	else
+	{
+		vehicle->rollEngineOne.setThrust(0.0);
+		vehicle->rollEngineTwo.setThrust(0.0);
+		vehicle->rollEngineThree.setThrust(0.0);
+	}
 }
 
 void Control::calcAxialData(Lander* vehicle, double lbs)
 {
+	bool parachute = vehicle->parachute;
+	double altitude = vehicle->altimeter;
 	double rotationY = vehicle->accelerometerY;
 	double rotationZ = vehicle->accelerometerZ;
 	double gyroY = vehicle->gyroscopeY;
@@ -153,39 +167,48 @@ void Control::calcAxialData(Lander* vehicle, double lbs)
 	double counterClockPower = axialOne + axialThree;
 	double clockPower = axialTwo;
 
-	// convert rotation per hour to per second
-	rotationY = (rotationY / 60) / 60;
-	rotationZ = (rotationZ / 60) / 60;
+	if (!parachute && altitude < 6)
+	{
+		// convert rotation per hour to per second
+		rotationY = (rotationY / 60) / 60;
+		rotationZ = (rotationZ / 60) / 60;
 
-	// convert rotation per hour to weight of spin
-	rotationY = rotationY * lbs;
-	rotationZ = rotationZ * lbs;
+		// convert rotation per hour to weight of spin
+		rotationY = rotationY * lbs;
+		rotationZ = rotationZ * lbs;
 
-	// adjust spin based on power output
-	rotationY = rotationY + (clockPower - counterClockPower);
-	rotationZ = rotationZ + (.66 * (clockPower - counterClockPower));    // Axial counts for 2/3rds of Z-axis
+		// adjust spin based on power output
+		rotationY = rotationY + (clockPower - counterClockPower);
+		rotationZ = rotationZ + (.66 * (clockPower - counterClockPower));    // Axial counts for 2/3rds of Z-axis
 
-	// convert amount of change back into rotation per hour
-	rotationY = rotationY / lbs;
-	rotationZ = rotationZ / lbs;
+		// convert amount of change back into rotation per hour
+		rotationY = rotationY / lbs;
+		rotationZ = rotationZ / lbs;
 
-	// convert rotation into degree shift for gyroscope
-	gyroY = rotationY * 360;
-	gyroZ = rotationZ * 360;
-	gyroY = static_cast<int>(vehicle->gyroscopeY + gyroY) % 360;  // takes old position, adds on new amount changed
-	gyroZ = static_cast<int>(vehicle->gyroscopeZ + gyroZ) % 360;
+		// convert rotation into degree shift for gyroscope
+		gyroY = rotationY * 360;
+		gyroZ = rotationZ * 360;
+		gyroY = static_cast<int>(vehicle->gyroscopeY + gyroY) % 360;  // takes old position, adds on new amount changed
+		gyroZ = static_cast<int>(vehicle->gyroscopeZ + gyroZ) % 360;
 
-	// update lander gyroscope
-	vehicle->gyroscopeY = gyroY;
-	vehicle->gyroscopeZ = gyroZ;
+		// update lander gyroscope
+		vehicle->gyroscopeY = gyroY;
+		vehicle->gyroscopeZ = gyroZ;
 
-	// convert rotation per second back to rotation per hour
-	rotationY = (rotationY * 60) * 60;
-	rotationZ = (rotationZ * 60) * 60;
+		// convert rotation per second back to rotation per hour
+		rotationY = (rotationY * 60) * 60;
+		rotationZ = (rotationZ * 60) * 60;
 
-	// update lander accelerometers
-	vehicle->accelerometerY = rotationY;
-	vehicle->accelerometerZ = rotationZ;
+		// update lander accelerometers
+		vehicle->accelerometerY = rotationY;
+		vehicle->accelerometerZ = rotationZ;
+	}
+	else
+	{
+		vehicle->axialThrustOne.setThrust(0.0);
+		vehicle->axialThrustTwo.setThrust(0.0);
+		vehicle->axialThrustThree.setThrust(0.0);
+	}
 
 }
 
@@ -252,7 +275,7 @@ void Control::calcVelocity(Lander* vehicle, double weight)
 		velocity = velocity - (totalPower * .25) * .25;
 
 		// update lander velocity
-		if (velocity > 0)
+		if (velocity >= 0)
 		{
 			vehicle->dopplerRadar = velocity;
 		}
@@ -260,6 +283,7 @@ void Control::calcVelocity(Lander* vehicle, double weight)
 		{
 			system("CLS");
 			cout << "Error: Lander is increasing altitude!" << endl;
+			vehicle->touchDown = true;       // just to end the simulation
 			cin.get();
 		}
 	}
@@ -277,9 +301,14 @@ void Control::calcAltitude(Lander* vehicle)
 	altitude = altitude - velocity;
 
 	// Deploy parachute or announce touch down
-	if (altitude <= 7.5)
+	if (altitude <= 7.5 && altitude > .62)
 	{
 		vehicle->parachute = true;
+		slowDownAccelerometer(vehicle);
+	}
+	else if (altitude <= .62)
+	{
+		vehicle->parachute = false;
 	}
 	else if (altitude < .03 && velocity > 17)
 	{
@@ -346,6 +375,7 @@ void Control::calcTemperature(Lander* vehicle)
 	}
 }
 
+// a method to add a quick pause to the program
 void quickPause(int sec)
 {
 	int seconds = sec * 1000;
@@ -354,5 +384,37 @@ void quickPause(int sec)
 		i = i;
 	}
 }
+
+// adjusts the rotation speed by 20 closer to 0.
+double adjustRotation(double rot)
+{
+	if (rot < 0)
+	{
+		return rot + 20;
+	}
+	else if (rot > 0)
+	{
+		return rot - 20;
+	}
+}
+
+void Control::slowDownAccelerometer(Lander* vehicle)
+{
+	double adjustRotation(double rot);
+
+	double rotationX = vehicle->accelerometerX;
+	double rotationY = vehicle->accelerometerY;
+	double rotationZ = vehicle->accelerometerZ;
+
+	rotationX = adjustRotation(rotationX);
+	rotationY = adjustRotation(rotationY);
+	rotationZ = adjustRotation(rotationZ);
+
+	vehicle->accelerometerX = rotationX;
+	vehicle->accelerometerY = rotationY;
+	vehicle->accelerometerZ = rotationZ;
+}
+
+
 
 

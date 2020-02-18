@@ -10,7 +10,6 @@ int main()
 	cout << "To run Mars Lander Simulation press enter. . ." << endl;
 	cin.get();
 
-
 	Control controller;
 	controller.landMarsLander();
 
