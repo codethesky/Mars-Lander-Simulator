@@ -1,4 +1,5 @@
 #include "Control.h"
+#include "windows.h"
 
 using namespace std;
 
@@ -65,7 +66,8 @@ void Control::landMarsLander()
 		dataLog.logData(lander);
 		simulator.display(lander);
 		calcSensorData(lander);
-		quickPause(10);
+		//quickPause(10);
+		Sleep(1000);
 	}
 
 
