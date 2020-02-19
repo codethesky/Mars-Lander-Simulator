@@ -48,6 +48,7 @@ void Control::landMarsLander()
 
 	DataLog dataLog;
 	Engine engine;
+	Simulator simulator;
 
 	/*
 	* calcSensorData(Lander* vehicle)
@@ -56,10 +57,13 @@ void Control::landMarsLander()
 	while (!lander->touchDown)
 	{
 		dataLog.logData(lander);     // logs data in txt file and sends to console output simulator
+		simulator.display(lander);
 		calcSensorData(lander);      // Calls for updated data for next position. 
 		dataLog.logData(lander);       // Sends lander data to be logged in file and sent to simulator
+		simulator.display(lander);
 		engine.getEngineData(lander);  // Sends lander data for engines to react, and update lander object data
 		dataLog.logData(lander);
+		simulator.display(lander);
 		calcSensorData(lander);
 		quickPause(10);
 	}
@@ -309,23 +313,25 @@ void Control::calcAltitude(Lander* vehicle)
 	else if (altitude <= .62)
 	{
 		vehicle->parachute = false;
-	}
-	else if (altitude < .03 && velocity > 17)
-	{
-		for (int i = 0; i < 8; i++)
+
+		 if (altitude <= .03 && velocity > 17)
 		{
-			system("CLS");
-			cout << "ERROR: Lander crashed! Speed too Fast! | SPEED: " << velocity << " mph" << endl;
-			quickPause(1);
+			for (int i = 0; i < 8; i++)
+			{
+				vehicle->touchDown = true;        // to end simulation
+				system("CLS");
+				cout << "ERROR: Lander crashed! Speed too Fast! | SPEED: " << velocity << " mph" << endl;
+				quickPause(1);
+			}
+			cin.get();
+		}		
+		else if (altitude <= .03 && velocity <= 17)
+		{
+			vehicle->touchDown = true;
+			//system("CLS");
+			cout << "     CONGRATULATIONS! We have touch down! " << endl;
+			cin.get();
 		}
-		cin.get();
-	}
-	else if (altitude < .03 && velocity < 17)
-	{
-		vehicle->touchDown = true;
-		system("CLS");
-		cout << "CONGRATULATIONS! We have touch down! " << endl;
-		cin.get();
 	}
 
 	// update lander

@@ -16,6 +16,5 @@ public:
 	void logData(Lander*);
 private:
 	int lineCount;
-
 	void clearLogFile();
 };

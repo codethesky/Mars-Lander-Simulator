@@ -17,7 +17,7 @@ DataLog::~DataLog()
 
 void DataLog::logData(Lander* vehicle)
 {
-	Simulator simulator;
+
 	// Open the log file
 	ofstream logfile;
 	logfile.open("log.txt");
@@ -52,7 +52,6 @@ void DataLog::logData(Lander* vehicle)
 
 
 	logfile.close();
-	simulator.display(vehicle);
 }
 
 // Will delete everything in the log.txt file
