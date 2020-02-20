@@ -404,11 +404,14 @@ double adjustRotation(double rot)
 	{
 		return rot - 20;
 	}
+	else
+	{
+		return rot;
+	}
 }
 
 void Control::slowDownAccelerometer(Lander* vehicle)
 {
-	double adjustRotation(double rot);
 
 	double rotationX = vehicle->accelerometerX;
 	double rotationY = vehicle->accelerometerY;
