@@ -15,21 +15,21 @@ DataLog::~DataLog()
 
 }
 
+/*
+// Move to the end of the current file
+while (!logfile.eof())
+{
+	lineCount++;
+	logfile.ignore(numeric_limits<streamsize>::max(), '\n');
+}
+*/
+
 void DataLog::logData(Lander* vehicle)
 {
-
 	// Open the log file
 	ofstream logfile;
 	logfile.open("log.txt");
 
-	/*
-	// Move to the end of the current file
-	while (!logfile.eof())
-	{
-		lineCount++;
-		logfile.ignore(numeric_limits<streamsize>::max(), '\n');
-	}
-	*/
 	// Add the new data
 	logfile << "X-Axis Accelerometer: " << vehicle->accelerometerX << "\n";
 	logfile << "Y-Axis Accelerometer: " << vehicle->accelerometerY << "\n";

@@ -14,7 +14,7 @@ public:
 	~Simulator();
 	void display(Lander*);
 private:
-	bool tracker;          // used in tracking current stage of lander (progress towards landing)
+	bool tracker;								// used in tracking current stage of lander (progress towards landing)
 	void displayBool(bool);
 	void displayProgress(int, int, int);
 };

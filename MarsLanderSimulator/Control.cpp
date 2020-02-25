@@ -1,3 +1,5 @@
+// Created By: Skyler Howard
+
 #include "Control.h"
 #include "windows.h"
 
@@ -45,8 +47,6 @@ void Control::initialize()
 
 void Control::landMarsLander()
 {
-	// TODO: Calculation runtime of program and make each iteration one second long to be congruent with calculations
-
 	DataLog dataLog;
 	Engine engine;
 	Simulator simulator;
@@ -54,7 +54,6 @@ void Control::landMarsLander()
 	/*
 	* calcSensorData(Lander* vehicle)
 	*/
-
 	while (!lander->touchDown)
 	{
 		dataLog.logData(lander);     // logs data in txt file and sends to console output simulator
@@ -66,11 +65,8 @@ void Control::landMarsLander()
 		dataLog.logData(lander);
 		simulator.display(lander);
 		calcSensorData(lander);
-		//quickPause(10);
 		Sleep(1000);
 	}
-
-
 }
 
 /*
@@ -285,10 +281,14 @@ void Control::calcVelocity(Lander* vehicle, double weight)
 		{
 			vehicle->dopplerRadar = velocity;
 		}
+		else if (velocity <= 0)
+		{
+			vehicle->dopplerRadar = 20;
+		}
 		else
 		{
 			system("CLS");
-			cout << "Error: Lander is increasing altitude!" << endl;
+			cout << "Error: Lander Error has occurred" << endl;
 			vehicle->touchDown = true;       // just to end the simulation
 			cin.get();
 		}
