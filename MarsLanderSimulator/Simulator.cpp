@@ -142,7 +142,7 @@ void Simulator::displayProgress(int stage, int progress, int parachute)
 	}
 	else if (progress <= stage && progress >= prevStage)
 	{
-		cout << "       v  ";
+		cout << "       U  ";
 		previous = true;
 		return;
 	}
@@ -167,7 +167,7 @@ void Simulator::displayProgress(int stage, int progress, int parachute)
 			if (previous)
 
 			{
-				cout << "       *  ";
+				cout << "       *  ";			// position is slot 3 coming from the right side
 			}
 			else
 			{
