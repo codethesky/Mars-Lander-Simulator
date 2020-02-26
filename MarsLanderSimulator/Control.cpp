@@ -67,6 +67,7 @@ void Control::landMarsLander()
 		calcSensorData(lander);
 		Sleep(1000);
 	}
+	
 }
 
 /*
